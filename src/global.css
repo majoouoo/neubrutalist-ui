@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+@font-face {
+  font-family: "Saint";
+  src: url("/fonts/SaintRegular.ttf");
+}
+
+:root {
+  --white: #fcfcfc;
+  --black: #121212;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Instrument Serif", serif;
+}
+
+body {
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.saint-font {
+  font-family: "Saint", sans-serif;
+}
