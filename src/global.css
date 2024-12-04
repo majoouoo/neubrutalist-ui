@@ -22,6 +22,10 @@ body {
   color: var(--white);
 }
 
+h1 {
+  font-weight: 400;
+}
+
 .saint-font {
   font-family: "Saint", sans-serif;
 }

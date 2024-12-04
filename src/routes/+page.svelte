@@ -1,19 +1,26 @@
 <script>
   let shadowX = 10;
   let shadowY = 10;
-  let shadowLength = 0;
   let cornerRadius = 8;
   let borderWidth = 2;
   let shadowColor = "#000";
   let elementColor = "#fff";
-  let transitionLength = 0.2;
-  let fontSizeRem = 1;
+  let checkedColor = "#009d30";
+  let backgroundColor = "#fff";
+  let transitionDuration = 0.2;
+  let fontSize = 16;
 
   let boxShadow = "";
   for (let i = 1; i < Math.max(shadowX, shadowY); i++) {
-    boxShadow += `${shadowX / Math.max(shadowX, shadowY) * i}px ${shadowY / Math.max(shadowX, shadowY) * i}px 0px ${shadowLength}px ${shadowColor}, `;
+    boxShadow += `${shadowX / Math.max(shadowX, shadowY) * i}px ${shadowY / Math.max(shadowX, shadowY) * i}px ${shadowColor}, `;
   }
-  boxShadow += `${shadowX}px ${shadowY}px ${shadowLength}px ${shadowColor}`;
+  boxShadow += `${shadowX}px ${shadowY}px ${shadowColor}`;
+
+  let switchShadow = "";
+  for (let i = 1; i < fontSize * 2 * 16; i++) {
+    switchShadow += `0px ${i}px ${shadowColor}, `;
+  }
+  switchShadow += `0px ${fontSize * 2 * 16}px ${shadowColor}`;
 </script>
 
 <main>
@@ -21,14 +28,16 @@
   style="
   --shadow-x: {shadowX}px;
   --shadow-y: {shadowY}px;
-  --shadow-length: {shadowLength}px;
   --corner-radius: {cornerRadius}px;
   --border-width: {borderWidth}px;
   --shadow-color: {shadowColor};
   --element-color: {elementColor};
-  --transition-length: {transitionLength}s;
-  --font-size-rem: {fontSizeRem}rem;
+  --background-color: {backgroundColor};
+  --checked-color: {checkedColor};
+  --transition-duration: {transitionDuration}s;
+  --font-size-rem: {fontSize / 16}rem;
   --box-shadow: {boxShadow};
+  --switch-shadow: {switchShadow};
   ">
     <div id="settings">
       <h1>Neubrutalist UI Generator</h1>
@@ -54,6 +63,22 @@
         <div class="input-wrapper">
           <input type="text" name="Input" class="component" placeholder=" ">
           <label for="Input" class="input-label">Username</label>
+        </div>
+      </div>
+    </div>
+    <div class="code">
+
+    </div>
+
+    <div class="component-card">
+      <header>
+        <h1>Checkbox</h1>
+      </header>
+      <div class="component-wrapper">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" name="checkbox" class="checkbox">
+          <div class="switch-shadow"></div>
+          <div class="switch-top"></div>
         </div>
       </div>
     </div>
@@ -89,8 +114,8 @@
   .component-card {
     gap: 1rem;
     border-radius: 1rem;
-    background-color: var(--white);
-    color: var(--black);
+    background-color: var(--background-color);
+    color: var(--shadow-color);
     display: grid;
     grid-template-rows: auto 1fr;
     padding: 1rem 1rem 3rem 1rem;
@@ -116,7 +141,7 @@
     background-color: var(--element-color);
     color: var(--shadow-color);
     transition-property: transform, box-shadow;
-    transition-duration: var(--transition-length);
+    transition-duration: var(--transition-duration);
   }
 
   .component:active, input.component:focus {
@@ -144,7 +169,7 @@
     width: min-content;
     height: min-content;
     padding: 0 calc(var(--font-size-rem) / 2);
-    transition: transform var(--transition-length);
+    transition: transform var(--transition-duration);
     color: var(--shadow-color);
   }
 
@@ -160,5 +185,83 @@
 
   input.component:focus ~ .input-label {
     transform: translateY(calc(var(--font-size-rem) * -0.5 + var(--shadow-y))) translateX(var(--shadow-x)) scale(0.8);
+  }
+
+  /* Checkbox */
+  .checkbox-wrapper {
+    height: calc(var(--font-size-rem) * 2);
+    width: calc(var(--font-size-rem) * 4);
+    position: relative;
+    border: var(--border-width) solid var(--shadow-color);
+    border-radius: calc(var(--font-size-rem) * 10);
+    background: var(--element-color);
+  }
+
+  .checkbox {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    margin: 0;
+  }
+
+  .switch-shadow {
+    height: calc(100% + var(--font-size-rem) * 0.4);
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: calc(var(--font-size-rem) - var(--border-width));
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .switch-shadow::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: calc(95% - var(--font-size-rem) * 0.4);
+    width: 50%;
+    border-radius: 100%;
+    display: block;
+    background: transparent;
+    box-shadow: var(--switch-shadow);
+    pointer-events: none;
+    transition: left var(--transition-duration) ease-in;
+  }
+
+  .switch-shadow::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: calc(100% - var(--font-size-rem) * 0.4);
+    width: 50%;
+    border-radius: calc(var(--font-size-rem) - var(--border-width));
+    display: block;
+    background: var(--checked-color);
+    transition: width var(--transition-duration) ease-in;
+  }
+
+  .switch-top {
+    height: 95%;
+    width: 50%;
+    box-sizing: border-box;
+    position: absolute;
+    top: calc(var(--font-size-rem) * -0.4);
+    left: 0;
+    background: var(--element-color);
+    border: var(--border-width) solid var(--shadow-color);
+    border-radius: 100%;
+    pointer-events: none;
+    transition: left var(--transition-duration) ease-in;
+  }
+
+  .checkbox:checked ~ .switch-top, .checkbox:checked ~ .switch-shadow::after {
+    left: 50%;
+  }
+
+  .checkbox:checked ~ .switch-shadow::before {
+    width: 80%;
   }
 </style>
