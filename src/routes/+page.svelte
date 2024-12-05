@@ -24,6 +24,10 @@
 </script>
 
 <main>
+  <div id="hero">
+    <h1>Neubrutalist UI <span class="saint-font" id="heading-g">G</span>enerator</h1>
+    <p>Effortlessly create bold, eye-catching interfaces - fully customizable elements for striking design aesthetics.</p>
+  </div>
   <div id="content"
   style="
   --shadow-x: {shadowX}px;
@@ -40,7 +44,7 @@
   --switch-shadow: {switchShadow};
   ">
     <div id="settings">
-      <h1>Neubrutalist UI Generator</h1>
+      <h1>Options</h1>
     </div>
 
     <div class="component-card">
@@ -89,12 +93,32 @@
 </main>
 
 <style>
+  #hero {
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  #heading-g {
+    letter-spacing: -0.15rem;
+  }
+
+  #hero p {
+    font-family: "Inter", sans-serif;
+    max-width: 40rem;
+    text-align: center;
+  }
+
   #content {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: repeat(4, 300px);
     gap: 1rem;
-    padding: 1rem;
+    padding: 2rem;
+    background: linear-gradient(transparent 10px, #2e2e2e 10px, transparent 11px) 0 0 / 20px 20px, linear-gradient(90deg, transparent 10px, #2e2e2e 10px, transparent 11px) 0 0 / 20px 20px;
   }
 
   #settings {
@@ -112,23 +136,24 @@
   }
 
   .component-card {
-    gap: 1rem;
-    border-radius: 1rem;
-    background-color: var(--background-color);
-    color: var(--shadow-color);
+    gap: 0.5rem;
+    color: var(--white);
     display: grid;
     grid-template-rows: auto 1fr;
-    padding: 1rem 1rem 3rem 1rem;
   }
 
   .component-card header {
     width: 100%;
+    z-index: 100;
   }
 
   .component-card .component-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--background-color);
+    border-radius: 1rem;
+    box-shadow: 0 0 1rem 1rem var(--black);
   }
 
   .component {
