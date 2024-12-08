@@ -13,8 +13,8 @@
   let boxShadow = "";
   const updateBoxShadow = (shadowX, shadowY, shadowColor) => {
     boxShadow = "";
-    for (let i = 1; i < Math.max(shadowX, shadowY); i++) {
-      boxShadow += `${shadowX / Math.max(shadowX, shadowY) * i}px ${shadowY / Math.max(shadowX, shadowY) * i}px ${shadowColor}, `;
+    for (let i = 1; i < Math.max(Math.abs(shadowX), Math.abs(shadowY)); i++) {
+      boxShadow += `${shadowX / Math.max(Math.abs(shadowX), Math.abs(shadowY)) * i}px ${shadowY / Math.max(Math.abs(shadowX), Math.abs(shadowY)) * i}px ${shadowColor}, `;
     }
     boxShadow += `${shadowX}px ${shadowY}px ${shadowColor}`;
   };
@@ -29,12 +29,21 @@
     switchShadow += `0px ${fontSize * 2 * 16}px ${shadowColor}`;
   }
   $: updateSwitchShadow(shadowColor, fontSize);
+
+  let activeCodeTabs = {
+    button: "html",
+    input: "html",
+    checkbox: "html"
+  }
+  const setActiveCodeTab = (component, tab) => {
+    activeCodeTabs[component] = tab;
+  }
 </script>
 
 <main>
   <div id="hero">
     <h1>Neubrutalist UI <span class="saint-font" id="heading-g">G</span>enerator</h1>
-    <p>Effortlessly create bold, eye-catching interfaces - fully customizable elements for striking design aesthetics.</p>
+    <p>Effortlessly create bold, eye-catching interfaces with these fully customizable elements.</p>
   </div>
   <div id="content"
   style="
@@ -54,19 +63,19 @@
     <div id="settings">
       <h1>Settings</h1>
       <div class="setting">
-        <label for="shadow-x">Shadow X:</label>
+        <label for="shadow-x">Shadow X (px):</label>
         <input type="number" name="shadow-x" bind:value={shadowX}>
       </div>
       <div class="setting">
-        <label for="shadow-y">Shadow Y:</label>
+        <label for="shadow-y">Shadow Y (px):</label>
         <input type="number" name="shadow-y" bind:value={shadowY}>
       </div>
       <div class="setting">
-        <label for="corner-radius">Corner radius:</label>
+        <label for="corner-radius">Corner radius (px):</label>
         <input type="number" name="corner-radius" bind:value={cornerRadius}>
       </div>
       <div class="setting">
-        <label for="border-width">Border width:</label>
+        <label for="border-width">Border width (px):</label>
         <input type="number" name="border-width" bind:value={borderWidth}>
       </div>
       <div class="setting">
@@ -86,51 +95,70 @@
         <input type="color" name="checked-color" bind:value={checkedColor}>
       </div>
       <div class="setting">
-        <label for="transition-duration">Transition duration:</label>
+        <label for="transition-duration">Transition duration (s):</label>
         <input type="number" name="transition-duration" bind:value={transitionDuration} step="0.1">
       </div>
       <div class="setting">
-        <label for="font-size">Font size:</label>
+        <label for="font-size">Font size (px):</label>
         <input type="number" name="font-size" bind:value={fontSize}>
       </div>
     </div>
 
-    <header class="component-header">
-      <h1>Button</h1>
-    </header>
-    <div class="component-card">
-      <button class="component">Log in</button>
-    </div>
-    <div class="code">
-      <code></code>
-    </div>
-
-    <header class="component-header">
-      <h1>Input</h1>
-    </header>
-    <div class="component-card">
-      <div class="input-wrapper">
-        <input type="text" name="Input" class="component" placeholder=" ">
-        <label for="Input" class="input-label">Username</label>
+    <div class="component-section">
+      <header class="component-header">
+        <h1>Button</h1>
+      </header>
+      <div class="code-tabs">
+        <button on:click={() => setActiveCodeTab("button", "html")} class:active-code-tab={activeCodeTabs.button == "html"}>HTML</button>
+        <button on:click={() => setActiveCodeTab("button", "css")} class:active-code-tab={activeCodeTabs.button == "css"}>CSS</button>
+      </div>
+      <div class="component-card">
+        <button class="component">Log in</button>
+      </div>
+      <div class="code">
+        <code></code>
       </div>
     </div>
-    <div class="code">
-      <code></code>
-    </div>
 
-    <header class="component-header">
-      <h1>Checkbox</h1>
-    </header>
-    <div class="component-card">
-      <div class="checkbox-wrapper">
-        <input type="checkbox" name="checkbox" class="checkbox">
-        <div class="switch-shadow"></div>
-        <div class="switch-top"></div>
+    <div class="component-section">
+      <header class="component-header">
+        <h1>Input</h1>
+      </header>
+      <div class="code-tabs">
+        <button on:click={() => setActiveCodeTab("input", "html")} class:active-code-tab={activeCodeTabs.input == "html"}>HTML</button>
+        <button on:click={() => setActiveCodeTab("input", "css")} class:active-code-tab={activeCodeTabs.input == "css"}>CSS</button>
+      </div>
+      <div class="component-card">
+        <div class="input-wrapper">
+          <input type="text" name="Input" class="component" placeholder=" ">
+          <label for="Input" class="input-label">Username</label>
+        </div>
+      </div>
+      <div class="code">
+        <code></code>
       </div>
     </div>
-    <div class="code">
-      <code></code>
+
+    <div class="component-section">
+      <header class="component-header">
+        <h1>Checkbox</h1>
+      </header>
+      <div class="code-tabs">
+        <button on:click={() => setActiveCodeTab("checkbox", "html")} class:active-code-tab={activeCodeTabs.checkbox == "html"}>HTML</button>
+        <button on:click={() => setActiveCodeTab("checkbox", "css")} class:active-code-tab={activeCodeTabs.checkbox == "css"}>CSS</button>
+      </div>
+      <div class="component-card">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" name="checkbox" class="checkbox">
+          <div class="switch-shadow"></div>
+          <div class="switch-top"></div>
+        </div>
+      </div>
+      <div class="code">
+        <code></code>
+      </div>
     </div>
+    
   </div>
 </main>
 
@@ -157,9 +185,9 @@
 
   #content {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: repeat(4, auto 300px);
-    gap: 0.5rem 1rem;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: repeat(4, 400px);
+    gap: 2rem;
     padding: 2rem;
   }
 
@@ -175,7 +203,6 @@
     align-self: flex-start;
 
     gap: 1rem;
-    margin-right: 2rem;
   }
 
   .setting {
@@ -197,10 +224,33 @@
     font-family: "Inter", sans-serif;
   }
 
-  .component-header {
-    grid-column: 2 / -1;
-    width: 100%;
-    z-index: 100;
+  .component-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 0.5rem;
+  }
+
+  .code-tabs {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+
+  .code-tabs button {
+    background-color: var(--black);
+    color: var(--white);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    font-family: "Inter", sans-serif;
+    cursor: pointer;
+  }
+
+  .code-tabs button.active-code-tab {
+    background-color: var(--white);
+    color: var(--black);
   }
 
   .component-card {
@@ -209,7 +259,7 @@
     align-items: center;
     background-color: var(--background-color);
     border-radius: 1rem;
-    box-shadow: 0 0 1rem 1rem var(--black);
+    overflow: hidden;
   }
 
   .code {
@@ -257,7 +307,7 @@
     z-index: 1;
     pointer-events: none;
     transform: translateY(calc(var(--border-width) + var(--font-size-rem))) translateX(calc(var(--border-width) + var(--font-size-rem) / 2)) scale(1);
-    background-color: white;
+    background-color: var(--element-color);
     width: min-content;
     height: min-content;
     padding: 0 calc(var(--font-size-rem) / 2);
