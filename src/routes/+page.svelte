@@ -1,4 +1,6 @@
 <script>
+	import CodeBlock from "$lib/CodeBlock.svelte";
+
   let shadowX = 10;
   let shadowY = 10;
   let cornerRadius = 8;
@@ -115,9 +117,31 @@
       <div class="component-card">
         <button class="component">Log in</button>
       </div>
-      <div class="code">
-        <code></code>
-      </div>
+        {#if activeCodeTabs.button == "html"}
+<CodeBlock language="html" code={`<button class="neubrutalist">
+  Log in
+</button>`} />
+        {:else if activeCodeTabs.button == "css"}
+      <CodeBlock language="css" code={`.neubrutalist {
+  padding: 1rem 2rem;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  border-radius: ${cornerRadius}px;
+  border: ${borderWidth}px solid ${shadowColor};
+  box-shadow: ${boxShadow};
+  background-color: ${elementColor};
+  color: ${shadowColor};
+  transition-property: transform, box-shadow;
+  transition-duration: ${transitionDuration}s;
+}
+
+.neubrutalist:active {
+  transform: translate(${shadowX}, ${shadowY});
+  box-shadow: none;
+  outline: none;
+}
+`} />
+      {/if}
     </div>
 
     <div class="component-section">
@@ -134,9 +158,71 @@
           <label for="Input" class="input-label">Username</label>
         </div>
       </div>
-      <div class="code">
-        <code></code>
-      </div>
+      {#if activeCodeTabs.input == "html"}
+<CodeBlock language="html" code={`<div class="input-wrapper">
+  <input type="text" name="Input" class="neubrutalist" placeholder=" ">
+  <label for="Input" class="input-label">Username</label>
+</div>`} />
+        {:else if activeCodeTabs.input == "css"}
+      <CodeBlock language="css" code={`.neubrutalist {
+  padding: 1rem 2rem;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  border-radius: ${cornerRadius}px;
+  border: ${borderWidth}px solid ${shadowColor};
+  box-shadow: ${boxShadow};
+  background-color: ${elementColor};
+  color: ${shadowColor};
+  transition-property: transform, box-shadow;
+  transition-duration: ${transitionDuration}s;
+}
+
+.neubrutalist:active, input.neubrutalist:focus {
+  transform: translate(${shadowX}, ${shadowY});
+  box-shadow: none;
+  outline: none;
+}
+
+input.neubrutalist {
+  padding: 1rem;
+  position: relative;
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.input-label {
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+  grid-row: 1;
+  grid-column: 1;
+  z-index: 1;
+  pointer-events: none;
+  transform: translateY(calc(${borderWidth}px + 1rem)) translateX(calc(${borderWidth}px + 0.5rem)) scale(1);
+  background-color: ${elementColor};
+  width: min-content;
+  height: min-content;
+  padding: 0 0.5rem;
+  transition: transform ${transitionDuration}s, padding ${transitionDuration}s;
+  color: var(--shadow-color);
+}
+
+.input-wrapper {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 100%;
+}
+
+input.component:not(:placeholder-shown) ~ .input-label {
+  transform: translateY(-0.5rem) translateX(${borderWidth}px) scale(0.8);
+  padding: calc(${borderWidth}px / 2) 0.5rem;
+}
+
+input.component:focus ~ .input-label {
+  transform: translateY(calc(-0.5rem + ${shadowY}px)) translateX(calc(${shadowX}px + ${borderWidth}px)) scale(0.8);
+  padding: calc(${borderWidth}px / 2) 0.5rem;
+}
+`} />
+      {/if}
     </div>
 
     <div class="component-section">
@@ -148,15 +234,97 @@
         <button on:click={() => setActiveCodeTab("checkbox", "css")} class:active-code-tab={activeCodeTabs.checkbox == "css"}>CSS</button>
       </div>
       <div class="component-card">
-        <div class="checkbox-wrapper">
-          <input type="checkbox" name="checkbox" class="checkbox">
+        <div class="switch-wrapper">
+          <input type="checkbox" name="checkbox" class="switch">
           <div class="switch-shadow"></div>
           <div class="switch-top"></div>
         </div>
       </div>
-      <div class="code">
-        <code></code>
-      </div>
+      {#if activeCodeTabs.checkbox == "html"}
+<CodeBlock language="html" code={`<div class="switch-wrapper">
+  <input type="checkbox" name="checkbox" class="switch">
+  <div class="switch-shadow"></div>
+  <div class="switch-top"></div>
+</div>`} />
+        {:else if activeCodeTabs.checkbox == "css"}
+      <CodeBlock language="css" code={`.switch-wrapper {
+  height: 2rem;
+  width: 4rem;
+  position: relative;
+  border: 2px solid ${shadowColor};
+  border-radius: 100rem;
+  background: ${elementColor};
+}
+
+.switch {
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  margin: 0;
+}
+
+.switch-shadow {
+  height: calc(100% + 0.4rem);
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-radius: calc(1rem - 2px);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.switch-shadow::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: calc(95% - 0.4rem);
+  width: 50%;
+  border-radius: 100%;
+  display: block;
+  background: transparent;
+  box-shadow: ${switchShadow};
+  pointer-events: none;
+  transition: left ${transitionDuration}s ease-in;
+}
+
+.switch-shadow::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: calc(100% - 0.4rem);
+  width: 50%;
+  border-radius: calc(1rem - 2px);
+  display: block;
+  background: ${checkedColor};
+  transition: width ${transitionDuration}s ease-in;
+}
+
+.switch-top {
+  height: 95%;
+  width: 50%;
+  box-sizing: border-box;
+  position: absolute;
+  top: calc(-0.4rem);
+  left: 0;
+  background: ${elementColor};
+  border: 2px solid ${shadowColor};
+  border-radius: 100%;
+  pointer-events: none;
+  transition: left ${transitionDuration}s ease-in;
+}
+
+.switch:checked ~ .switch-top, .switch:checked ~ .switch-shadow::after {
+  left: 50%;
+}
+
+.switch:checked ~ .switch-shadow::before {
+  width: 80%;
+}
+`} />
+      {/if}
     </div>
     
   </div>
@@ -262,16 +430,6 @@
     overflow: hidden;
   }
 
-  .code {
-    background-color: #1c1c1c;
-    border-radius: 1rem;
-    padding: 0.5rem;
-  }
-
-  .code code {
-    font-family: monospace;
-  }
-
   /* Components */
   .component {
     padding: var(--font-size-rem) calc(var(--font-size-rem) * 2);
@@ -332,7 +490,7 @@
   }
 
   /* Checkbox */
-  .checkbox-wrapper {
+  .switch-wrapper {
     height: calc(var(--font-size-rem) * 2);
     width: calc(var(--font-size-rem) * 4);
     position: relative;
@@ -341,7 +499,7 @@
     background: var(--element-color);
   }
 
-  .checkbox {
+  .switch {
     height: 100%;
     width: 100%;
     opacity: 0;
@@ -401,11 +559,11 @@
     transition: left var(--transition-duration) ease-in;
   }
 
-  .checkbox:checked ~ .switch-top, .checkbox:checked ~ .switch-shadow::after {
+  .switch:checked ~ .switch-top, .switch:checked ~ .switch-shadow::after {
     left: 50%;
   }
 
-  .checkbox:checked ~ .switch-shadow::before {
+  .switch:checked ~ .switch-shadow::before {
     width: 80%;
   }
 </style>
