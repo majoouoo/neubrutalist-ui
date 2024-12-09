@@ -65,7 +65,6 @@ const copy = () => {
     padding: 0.5rem;
     border-radius: 0.5rem;
     cursor: pointer;
-    margin: 0.5rem 0;
     position: sticky;
     bottom: 0;
     left: 0;

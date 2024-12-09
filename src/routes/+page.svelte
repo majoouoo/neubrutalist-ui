@@ -25,10 +25,10 @@
   let switchShadow = "";
   const updateSwitchShadow = (shadowColor, fontSize) => {
     switchShadow = "";
-    for (let i = 1; i < fontSize * 2 * 16; i++) {
+    for (let i = 1; i < fontSize * 2 + 10; i += 3) {
       switchShadow += `0px ${i}px ${shadowColor}, `;
     }
-    switchShadow += `0px ${fontSize * 2 * 16}px ${shadowColor}`;
+    switchShadow += `0px ${fontSize * 2}px ${shadowColor}`;
   }
   $: updateSwitchShadow(shadowColor, fontSize);
 
@@ -494,7 +494,7 @@ input.component:focus ~ .input-label {
     height: calc(var(--font-size-rem) * 2);
     width: calc(var(--font-size-rem) * 4);
     position: relative;
-    border: 2px solid var(--shadow-color);
+    border: var(--border-width) solid var(--shadow-color);
     border-radius: calc(var(--font-size-rem) * 10);
     background: var(--element-color);
   }
@@ -512,7 +512,7 @@ input.component:focus ~ .input-label {
     position: absolute;
     bottom: 0;
     left: 0;
-    border-radius: calc(var(--font-size-rem) - 2px);
+    border-radius: calc(var(--font-size-rem) - var(--border-width));
     overflow: hidden;
     pointer-events: none;
   }
@@ -539,7 +539,7 @@ input.component:focus ~ .input-label {
     left: 0;
     height: calc(100% - var(--font-size-rem) * 0.4);
     width: 50%;
-    border-radius: calc(var(--font-size-rem) - 2px);
+    border-radius: calc(var(--font-size-rem) - var(--border-width));
     display: block;
     background: var(--checked-color);
     transition: width var(--transition-duration) ease-in;
@@ -553,7 +553,7 @@ input.component:focus ~ .input-label {
     top: calc(var(--font-size-rem) * -0.4);
     left: 0;
     background: var(--element-color);
-    border: 2px solid var(--shadow-color);
+    border: var(--border-width) solid var(--shadow-color);
     border-radius: 100%;
     pointer-events: none;
     transition: left var(--transition-duration) ease-in;
