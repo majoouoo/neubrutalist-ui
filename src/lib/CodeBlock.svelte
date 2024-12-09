@@ -68,10 +68,15 @@ const copy = () => {
     position: sticky;
     bottom: 0;
     left: 0;
-    transition: background-color 0.1s;
+    transition: background-color 0.2s;
   }
 
   .copyBtn:hover {
     background-color: #424b55;
+  }
+
+  .copyBtn:active {
+    background-color: #5c6977;
+    border: 1px solid #5c6977;
   }
 </style>

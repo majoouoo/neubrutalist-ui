@@ -12,6 +12,14 @@
   let transitionDuration = 0.2;
   let fontSize = 16;
 
+  $: shadowX = String(shadowX).replace(/[^0-9.-]/g, '')
+  $: shadowY = String(shadowY).replace(/[^0-9.-]/g, '')
+  $: cornerRadius = String(cornerRadius).replace(/-\d+(\.\d+)?/g, "0").replace(/[^0-9.]/g, '')
+  $: borderWidth = String(borderWidth).replace(/-\d+(\.\d+)?/g, "0").replace(/[^0-9.]/g, '')
+  $: transitionDuration = String(transitionDuration).replace(/-\d+(\.\d+)?/g, "0").replace(/[^0-9.]/g, '')
+  $: fontSize = String(fontSize).replace(/-\d+(\.\d+)?/g, "0").replace(/[^0-9.]/g, '')
+
+  // Shadow calculation
   let boxShadow = "";
   const updateBoxShadow = (shadowX, shadowY, shadowColor) => {
     boxShadow = "";
@@ -32,6 +40,43 @@
   }
   $: updateSwitchShadow(shadowColor, fontSize);
 
+  // Increment setting
+  let incrementInterval
+  const startIncrement = (setting, increment) => {
+    incrementSetting(setting, increment);
+    incrementInterval = setInterval(() => incrementSetting(setting, increment), 200);
+  }
+
+  const stopIncrement = () => {
+    clearInterval(incrementInterval);
+  }
+
+  const incrementSetting = (setting, increment) => {
+    switch (setting) {
+      case "shadowX":
+        shadowX = Number(shadowX) + increment;
+        break;
+      case "shadowY":
+        shadowY = Number(shadowY) + increment;
+        break;
+      case "cornerRadius":
+        cornerRadius = Number(cornerRadius) + increment;
+        break;
+      case "borderWidth":
+        borderWidth = Number(borderWidth) + increment;
+        break;
+      case "transitionDuration":
+        transitionDuration *= 10;
+        transitionDuration = Number(transitionDuration) + increment;
+        transitionDuration /= 10;
+        break;
+      case "fontSize":
+        fontSize = Number(fontSize) + increment;
+        break;
+    }
+  }
+
+  // Code tabs
   let activeCodeTabs = {
     button: "html",
     input: "html",
@@ -66,19 +111,67 @@
       <h1>Settings</h1>
       <div class="setting">
         <label for="shadow-x">Shadow X (px):</label>
-        <input type="number" name="shadow-x" bind:value={shadowX}>
+        <div class="setting-input-wrapper">
+          <input type="text" name="shadow-x" bind:value={shadowX}>
+          <button class="increment-btn"
+            on:mousedown={() => startIncrement("shadowX", 1)}
+            on:mouseup={stopIncrement}
+            on:mouseleave={stopIncrement}>
+          +</button>
+          <button class="increment-btn"
+            on:mousedown={() => startIncrement("shadowX", -1)}
+            on:mouseup={stopIncrement}
+            on:mouseleave={stopIncrement}>
+          -</button>
+        </div>
       </div>
       <div class="setting">
         <label for="shadow-y">Shadow Y (px):</label>
-        <input type="number" name="shadow-y" bind:value={shadowY}>
+        <div class="setting-input-wrapper">
+          <input type="text" name="shadow-y" bind:value={shadowY}>
+          <button class="increment-btn"
+            on:mousedown={() => startIncrement("shadowY", 1)}
+            on:mouseup={stopIncrement}
+            on:mouseleave={stopIncrement}>
+          +</button>
+          <button class="increment-btn"
+            on:mousedown={() => startIncrement("shadowY", -1)}
+            on:mouseup={stopIncrement}
+            on:mouseleave={stopIncrement}>
+          -</button>
+        </div>
       </div>
       <div class="setting">
         <label for="corner-radius">Corner radius (px):</label>
-        <input type="number" name="corner-radius" bind:value={cornerRadius}>
+        <div class="setting-input-wrapper">
+          <input type="text" name="corner-radius" bind:value={cornerRadius}>
+          <button class="increment-btn"
+            on:mousedown={() => startIncrement("cornerRadius", 1)}
+            on:mouseup={stopIncrement}
+            on:mouseleave={stopIncrement}>
+          +</button>
+          <button class="increment-btn"
+            on:mousedown={() => startIncrement("cornerRadius", -1)}
+            on:mouseup={stopIncrement}
+            on:mouseleave={stopIncrement}>
+          -</button>
+        </div>
       </div>
       <div class="setting">
         <label for="border-width">Border width (px):</label>
-        <input type="number" name="border-width" bind:value={borderWidth}>
+        <div class="setting-input-wrapper">
+          <input type="text" name="border-width" bind:value={borderWidth}>
+          <button class="increment-btn"
+            on:mousedown={() => startIncrement("borderWidth", 1)}
+            on:mouseup={stopIncrement}
+            on:mouseleave={stopIncrement}>
+          +</button>
+          <button class="increment-btn"
+            on:mousedown={() => startIncrement("borderWidth", -1)}
+            on:mouseup={stopIncrement}
+            on:mouseleave={stopIncrement}>
+          -</button>
+        </div>
       </div>
       <div class="setting">
         <label for="shadow-color">Shadow color:</label>
@@ -98,11 +191,35 @@
       </div>
       <div class="setting">
         <label for="transition-duration">Transition duration (s):</label>
-        <input type="number" name="transition-duration" bind:value={transitionDuration} step="0.1">
+        <div class="setting-input-wrapper">
+          <input type="text" name="transition-duration" bind:value={transitionDuration}>
+          <button class="increment-btn"
+            on:mousedown={() => startIncrement("transitionDuration", 1)}
+            on:mouseup={stopIncrement}
+            on:mouseleave={stopIncrement}>
+          +</button>
+          <button class="increment-btn"
+            on:mousedown={() => startIncrement("transitionDuration", -1)}
+            on:mouseup={stopIncrement}
+            on:mouseleave={stopIncrement}>
+          -</button>
+        </div>
       </div>
       <div class="setting">
         <label for="font-size">Font size (px):</label>
-        <input type="number" name="font-size" bind:value={fontSize}>
+        <div class="setting-input-wrapper">
+          <input type="text" name="font-size" bind:value={fontSize}>
+          <button class="increment-btn"
+            on:mousedown={() => startIncrement("fontSize", 1)}
+            on:mouseup={stopIncrement}
+            on:mouseleave={stopIncrement}>
+          +</button>
+          <button class="increment-btn"
+            on:mousedown={() => startIncrement("fontSize", -1)}
+            on:mouseup={stopIncrement}
+            on:mouseleave={stopIncrement}>
+          -</button>
+        </div>
       </div>
     </div>
 
@@ -366,7 +483,7 @@ input.component:focus ~ .input-label {
     flex-direction: column;
 
     position: sticky;
-    top: 0;
+    top: 1rem;
     left: 0;
     align-self: flex-start;
 
@@ -383,6 +500,12 @@ input.component:focus ~ .input-label {
     font-family: "Inter", sans-serif;
   }
 
+  .setting-input-wrapper {
+    display: flex;
+    gap: 0.2rem;
+    align-items: center;
+  }
+
   .setting input {
     padding: 0.3rem;
     border-radius: 0.5rem;
@@ -390,6 +513,30 @@ input.component:focus ~ .input-label {
     background-color: var(--black);
     color: var(--white);
     font-family: "Inter", sans-serif;
+    width: 5rem;
+  }
+
+  .increment-btn {
+    height: 1.725rem;
+    aspect-ratio: 1;
+    border-radius: 0.5rem;
+    border: 1px solid #484848;
+    background-color: var(--black);
+    color: var(--white);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.1s;
+  }
+
+  .increment-btn:hover {
+    background-color: #484848;
+  }
+
+  .increment-btn:active {
+    background-color: #777777;
+    border: 1px solid #777777;
   }
 
   .component-section {
