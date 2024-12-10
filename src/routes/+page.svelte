@@ -571,6 +571,15 @@ input.neubrutalist:focus ~ .input-label {
 			{/if}
 		</div>
 	</div>
+
+	<footer>
+		<p>
+			This application uses third-party materials under the following licenses:<br>
+			Inter Font © <a href="https://github.com/rsms/inter">The Inter Project Authors (Rasmus Andersson)</a> <a href="https://openfontlicense.org/open-font-license-official-text/">SIL Open Font License 1.1</a><br>
+			Instrument Serif Font © <a href="https://github.com/Instrument/instrument-serif">The Instrument Serif Project Authors (Rasmus Andersson)</a> <a href="https://openfontlicense.org/open-font-license-official-text/">SIL Open Font License 1.1</a><br>
+			Saint Font © <a href="https://www.behance.net/dushnota">Liza Dushnota</a>
+		</p>
+	</footer>
 </main>
 
 <style>
@@ -719,6 +728,23 @@ input.neubrutalist:focus ~ .input-label {
 		background-color: var(--background-color);
 		border-radius: 1rem;
 		overflow: hidden;
+	}
+
+	footer {
+		padding: 1rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		gap: 0.5rem;
+		text-align: center;
+		background:
+			linear-gradient(transparent 6px, #2e2e2e 6px, transparent 7px) 0 0 / 20px 20px,
+			linear-gradient(90deg, transparent 10px, #2e2e2e 10px, transparent 11px) 0 0 / 20px 20px;
+	}
+
+	footer a {
+		color: #ffffff;
 	}
 
 	/* Components */
