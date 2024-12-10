@@ -80,7 +80,8 @@
   let activeCodeTabs = {
     button: "html",
     input: "html",
-    checkbox: "html"
+    checkbox: "html",
+    card: "html"
   }
   const setActiveCodeTab = (component, tab) => {
     activeCodeTabs[component] = tab;
@@ -252,8 +253,8 @@
   transition-duration: ${transitionDuration}s;
 }
 
-.neubrutalist:active {
-  transform: translate(${shadowX}, ${shadowY});
+button.neubrutalist:active {
+  transform: translate(${shadowX}px, ${shadowY}px);
   box-shadow: none;
   outline: none;
 }
@@ -294,8 +295,8 @@
   transition-duration: ${transitionDuration}s;
 }
 
-.neubrutalist:active, input.neubrutalist:focus {
-  transform: translate(${shadowX}, ${shadowY});
+input.neubrutalist:active, input.neubrutalist:focus {
+  transform: translate(${shadowX}px, ${shadowY}px);
   box-shadow: none;
   outline: none;
 }
@@ -320,7 +321,7 @@ input.neubrutalist {
   height: min-content;
   padding: 0 0.5rem;
   transition: transform ${transitionDuration}s, padding ${transitionDuration}s;
-  color: var(--shadow-color);
+  color: ${shadowColor};
 }
 
 .input-wrapper {
@@ -329,12 +330,12 @@ input.neubrutalist {
   grid-template-rows: 100%;
 }
 
-input.component:not(:placeholder-shown) ~ .input-label {
+input.neubrutalist:not(:placeholder-shown) ~ .input-label {
   transform: translateY(-0.5rem) translateX(${borderWidth}px) scale(0.8);
   padding: calc(${borderWidth}px / 2) 0.5rem;
 }
 
-input.component:focus ~ .input-label {
+input.neubrutalist:focus ~ .input-label {
   transform: translateY(calc(-0.5rem + ${shadowY}px)) translateX(calc(${shadowX}px + ${borderWidth}px)) scale(0.8);
   padding: calc(${borderWidth}px / 2) 0.5rem;
 }
@@ -439,6 +440,38 @@ input.component:focus ~ .input-label {
 
 .switch:checked ~ .switch-shadow::before {
   width: 80%;
+}
+`} />
+      {/if}
+    </div>
+
+    <div class="component-section">
+      <header class="component-header">
+        <h1>Card</h1>
+      </header>
+      <div class="code-tabs">
+        <button on:click={() => setActiveCodeTab("button", "html")} class:active-code-tab={activeCodeTabs.card == "html"}>HTML</button>
+        <button on:click={() => setActiveCodeTab("button", "css")} class:active-code-tab={activeCodeTabs.card == "css"}>CSS</button>
+      </div>
+      <div class="component-card">
+        <div class="component" style="width: 50%;">
+          <h2>Card title</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sint quam adipisci.</p>
+        </div>
+      </div>
+        {#if activeCodeTabs.button == "html"}
+<CodeBlock language="html" code={`<div class="neubrutalist">
+</div>`} />
+        {:else if activeCodeTabs.button == "css"}
+      <CodeBlock language="css" code={`.neubrutalist {
+  padding: 1rem 2rem;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  border-radius: ${cornerRadius}px;
+  border: ${borderWidth}px solid ${shadowColor};
+  box-shadow: ${boxShadow};
+  background-color: ${elementColor};
+  color: ${shadowColor};
 }
 `} />
       {/if}
@@ -591,7 +624,7 @@ input.component:focus ~ .input-label {
     transition-duration: var(--transition-duration);
   }
 
-  .component:active, input.component:focus {
+  input.component:active, input.component:focus, button.component:active {
     transform: translate(var(--shadow-x), var(--shadow-y));
     box-shadow: none;
     outline: none;
