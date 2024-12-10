@@ -1,5 +1,15 @@
 <script>
 	import CodeBlock from '$lib/CodeBlock.svelte';
+	import { onMount } from 'svelte';
+	import { createHighlighter } from 'shiki';
+
+	let highlighter;
+	onMount(async () => {
+		highlighter = await createHighlighter({
+			themes: ['github-dark'],
+			langs: ['html', 'css']
+		});
+	});
 
 	let shadowX = 10;
 	let shadowY = 10;
@@ -289,6 +299,7 @@
 			</div>
 			{#if activeCodeTabs.button == 'html'}
 				<CodeBlock
+					highlighter={highlighter}
 					language="html"
 					code={`<button class="neubrutalist">
   Log in
@@ -296,6 +307,7 @@
 				/>
 			{:else if activeCodeTabs.button == 'css'}
 				<CodeBlock
+					highlighter={highlighter}
 					language="css"
 					code={`.neubrutalist {
   padding: 1rem 2rem;
@@ -342,6 +354,7 @@ button.neubrutalist:active {
 			</div>
 			{#if activeCodeTabs.input == 'html'}
 				<CodeBlock
+					highlighter={highlighter}
 					language="html"
 					code={`<div class="input-wrapper">
   <input type="text" name="Input" class="neubrutalist" placeholder=" ">
@@ -350,6 +363,7 @@ button.neubrutalist:active {
 				/>
 			{:else if activeCodeTabs.input == 'css'}
 				<CodeBlock
+					highlighter={highlighter}
 					language="css"
 					code={`.neubrutalist {
   padding: 1rem 2rem;
@@ -436,6 +450,7 @@ input.neubrutalist:focus ~ .input-label {
 			</div>
 			{#if activeCodeTabs.checkbox == 'html'}
 				<CodeBlock
+					highlighter={highlighter}
 					language="html"
 					code={`<div class="switch-wrapper">
   <input type="checkbox" name="checkbox" class="switch">
@@ -445,6 +460,7 @@ input.neubrutalist:focus ~ .input-label {
 				/>
 			{:else if activeCodeTabs.checkbox == 'css'}
 				<CodeBlock
+					highlighter={highlighter}
 					language="css"
 					code={`.switch-wrapper {
   height: 2rem;
@@ -549,12 +565,14 @@ input.neubrutalist:focus ~ .input-label {
 			</div>
 			{#if activeCodeTabs.button == 'html'}
 				<CodeBlock
+					highlighter={highlighter}
 					language="html"
 					code={`<div class="neubrutalist">
 </div>`}
 				/>
 			{:else if activeCodeTabs.button == 'css'}
 				<CodeBlock
+					highlighter={highlighter}
 					language="css"
 					code={`.neubrutalist {
   padding: 1rem 2rem;
@@ -577,7 +595,8 @@ input.neubrutalist:focus ~ .input-label {
 			This application uses third-party materials under the following licenses:<br>
 			Inter Font © <a href="https://github.com/rsms/inter">The Inter Project Authors (Rasmus Andersson)</a> <a href="https://openfontlicense.org/open-font-license-official-text/">SIL Open Font License 1.1</a><br>
 			Instrument Serif Font © <a href="https://github.com/Instrument/instrument-serif">The Instrument Serif Project Authors (Rasmus Andersson)</a> <a href="https://openfontlicense.org/open-font-license-official-text/">SIL Open Font License 1.1</a><br>
-			Saint Font © <a href="https://www.behance.net/dushnota">Liza Dushnota</a>
+			Saint Font © <a href="https://www.behance.net/dushnota">Liza Dushnota</a><br>
+			<a href="https://github.com/shikijs/shiki">Shiki</a> © 2021 Pine Wu; © 2023 <a href="https://github.com/antfu">Anthony Fu</a> MIT License
 		</p>
 	</footer>
 </main>

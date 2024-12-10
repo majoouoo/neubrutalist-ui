@@ -35,3 +35,4 @@ This application uses third-party materials under the following licenses:
 1. Inter Font © The Inter Project Authors (Rasmus Andersson - https://github.com/rsms/inter) Licensed under the SIL Open Font License 1.1. For details, visit https://openfontlicense.org/open-font-license-official-text/
 2. Instrument Serif Font © The Instrument Serif Project Authors (https://github.com/Instrument/instrument-serif) Licensed under the SIL Open Font License 1.1. For details, visit https://openfontlicense.org/open-font-license-official-text/
 3. Saint Font © Liza Dushnota (https://www.behance.net/dushnota)
+4. Shiki © 2021 Pine Wu; © 2023 Anthony Fu (https://github.com/antfu) (https://github.com/shikijs/shiki) Licensed under the MIT License. 

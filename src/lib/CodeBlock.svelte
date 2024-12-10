@@ -1,21 +1,11 @@
 <script>
 	import { onMount } from 'svelte';
-	import { createHighlighter } from 'shiki';
 
 	export let language = '';
 	export let code = '';
+	export let highlighter = '';
 
-	let highlighter;
 	let codeHtml;
-
-	onMount(async () => {
-		highlighter = await createHighlighter({
-			themes: ['github-dark'],
-			langs: ['html', 'css']
-		});
-
-		generateHtml(code);
-	});
 
 	const generateHtml = (code) => {
 		if (highlighter) {
@@ -26,7 +16,7 @@
 		}
 	};
 
-	$: generateHtml(code);
+	$: generateHtml(code, highlighter);
 
 	const copy = () => {
 		navigator.clipboard.writeText(code);
