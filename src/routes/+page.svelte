@@ -549,11 +549,11 @@ input.neubrutalist:focus ~ .input-label {
 			</header>
 			<div class="code-tabs">
 				<button
-					on:click={() => setActiveCodeTab('button', 'html')}
+					on:click={() => setActiveCodeTab('card', 'html')}
 					class:active-code-tab={activeCodeTabs.card == 'html'}>HTML</button
 				>
 				<button
-					on:click={() => setActiveCodeTab('button', 'css')}
+					on:click={() => setActiveCodeTab('card', 'css')}
 					class:active-code-tab={activeCodeTabs.card == 'css'}>CSS</button
 				>
 			</div>
@@ -563,14 +563,14 @@ input.neubrutalist:focus ~ .input-label {
 					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sint quam adipisci.</p>
 				</div>
 			</div>
-			{#if activeCodeTabs.button == 'html'}
+			{#if activeCodeTabs.card == 'html'}
 				<CodeBlock
 					highlighter={highlighter}
 					language="html"
 					code={`<div class="neubrutalist">
 </div>`}
 				/>
-			{:else if activeCodeTabs.button == 'css'}
+			{:else if activeCodeTabs.card == 'css'}
 				<CodeBlock
 					highlighter={highlighter}
 					language="css"
