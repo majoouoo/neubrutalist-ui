@@ -52,7 +52,7 @@
 	let incrementInterval;
 	const startIncrement = (setting, increment) => {
 		incrementSetting(setting, increment);
-		incrementInterval = setInterval(() => incrementSetting(setting, increment), 200);
+		incrementInterval = setInterval(() => incrementSetting(setting, increment), 130);
 	};
 
 	const stopIncrement = () => {
