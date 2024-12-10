@@ -5,7 +5,7 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		paths: {
-			base: "/neubrutalist-ui",
+			base: '/neubrutalist-ui'
 		}
 	}
 };

@@ -1,5 +1,5 @@
-<style>
-  @import "../global.css";
-</style>
-
 <slot></slot>
+
+<style>
+	@import '../global.css';
+</style>
